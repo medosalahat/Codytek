@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Todo tasks</title>
+    <script src="core/angular/angular.min.js"></script>
+    <script src="core/jquery-3.2.1.min.js"></script>
+    <script src="core/main.js"></script>
+    <link rel="stylesheet" href="core/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="core/bootstrap/css/style.css">
+    <link rel="icon" type="image/png" href="core/media/favicon.ico"/>
+</head>
+<body ng-app="codeytek">
+<div ng-include="'menu.html'"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h3>Add Task</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-controller="add_task">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-12">
+            <div data-ng-show="showSuccess" ng-class="{fade:doFade}" class="alert alert-success"><strong>Success:</strong> {{errorMessage}}</div>
+            <div class="row">
+                <div class="col-lg-12" style="">
+                    <form name="taskForm" ng-submit="taskFormSubmit()" novalidate>
+
+                        <div class="form-group" ng-class="{ 'has-error' : taskForm.category.$invalid && !taskForm.category.$pristine }">
+                            <label>Category</label>
+                            <select ng-model="task.category" class="form-control"  required>
+                                <option  ng-repeat="cat in category" value="{{cat.id}}">{{cat.title}}</option>
+                            </select>
+                            <p ng-show="taskForm.category.$invalid && !taskForm.category.$pristine" class="help-block">Category is required.</p>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : taskForm.title.$invalid && !taskForm.title.$pristine }">
+                            <label>Title</label>
+                            <input type="text" name="title" class="form-control" ng-model="task.title" required>
+                            <p ng-show="taskForm.title.$invalid && !taskForm.title.$pristine" class="help-block">You title is required.</p>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : taskForm.description.$invalid && !taskForm.description.$pristine }">
+                            <label>Description</label>
+                            <textarea name="description" class="form-control" ng-model="task.description" required rows="5"> </textarea>
+                            <p ng-show="taskForm.description.$invalid && !taskForm.description.$pristine" class="help-block">You description is required.</p>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : taskForm.due_date.$invalid && !taskForm.due_date.$pristine }">
+                            <label>Date</label>
+                            <input type="date" name="due_date" class="form-control" ng-model="task.due_date" required>
+                            <p ng-show="taskForm.due_date.$invalid && !taskForm.due_date.$pristine" class="help-block">You date is required.</p>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : taskForm.tags.$invalid && !taskForm.tags.$pristine }">
+                            <label>Tags</label>
+                            <input type="text" name="tags" class="form-control" ng-model="task.tags">
+                            <p ng-show="taskForm.tags.$invalid && !taskForm.tags.$pristine" class="help-block">You date is required.</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right" ng-disabled="categoryForm.$invalid">+ Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
